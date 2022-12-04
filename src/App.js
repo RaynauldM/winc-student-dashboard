@@ -1,24 +1,146 @@
-import logo from './logo.svg';
-import './App.css';
+import "./App.css";
+import React, { useState } from "react";
+
+import { Route, Routes, Link } from "react-router-dom";
+
+import { VictoryBar, VictoryChart, VictoryAxis, VictoryGroup } from "victory";
+
+const testData = [
+  { name: "Ray", course: "course1", fun: 4, diff: 6 },
+  { name: "Ray", course: "course2", fun: 8, diff: 7 },
+  { name: "Ray", course: "course3", fun: 9, diff: 4 },
+  { name: "Tom", course: "course1", fun: 2, diff: 7 },
+  { name: "Tom", course: "course2", fun: 1, diff: 2 },
+  { name: "Tom", course: "course3", fun: 5, diff: 5 },
+  { name: "Fien", course: "course1", fun: 6, diff: 2 },
+  { name: "Fien", course: "course2", fun: 5, diff: 8 },
+  { name: "Fien", course: "course3", fun: 4, diff: 2 },
+];
+
+let dataCommon = [];
+let allNames = [];
+
+//find all names and put them in allNames
+testData.forEach((obj) => {
+  if (!allNames.includes(obj.name)) allNames.push(obj.name);
+});
+
+//find all the courses and put them in dataCommon
+testData.forEach((obj) => {
+  for (let key in obj) {
+    if (!dataCommon.some((co) => co.course == obj.course)) {
+      dataCommon.push({ course: `${obj.course}`, fun: 0, diff: 0 });
+    }
+  }
+});
+
+//find all the fun and diff per course and update dataCommon
+
+dataCommon.forEach((obj) => {
+  testData.map((e) => {
+    if (e.course == obj.course) {
+      obj.fun += e.fun;
+      obj.diff += e.diff;
+    }
+  });
+  obj.fun = Math.floor(obj.fun / allNames.length);
+  obj.diff = Math.floor(obj.diff / allNames.length);
+});
+
+function Header({ text }) {
+  return (
+    <>
+      <h1>{text}</h1>
+    </>
+  );
+}
+
+function MainGraphComponent({ data }) {
+  return (
+    <>
+      <VictoryChart>
+        <VictoryGroup offset={30} colorScale={"qualitative"}>
+          <VictoryBar data={data} x="course" y="fun" />
+          <VictoryBar data={data} x="course" y="diff" />
+        </VictoryGroup>
+      </VictoryChart>
+      <Legenda />
+    </>
+  );
+}
+
+function Legenda() {
+  return (
+    <>
+      <h3>Legend</h3>
+      <p>Darkblue: Grade for fun</p>
+      <p>Lightblue: Grade for difficulty</p>
+    </>
+  );
+}
+
+function NameList({ nameList }) {
+  return (
+    <>
+      <h3>Studentlist</h3>
+
+      <ul>
+        {nameList.map((element, index) => (
+          <li key={index}>
+            <Link to={`/student/${element}`}>{element}</Link>
+          </li>
+        ))}
+      </ul>
+    </>
+  );
+}
+
+function StudentPage() {
+  let thisUrl = window.location.href;
+  let thisUrlSplit = thisUrl.split("/", -1);
+  let studentName = thisUrlSplit[thisUrlSplit.length - 1];
+
+  function getData(student) {
+    return testData.filter((e) => e.name == studentName);
+  }
+
+  let studentData = getData(studentName);
+
+  return (
+    <>
+      <Header text={studentName} />
+
+      <MainGraphComponent data={studentData} />
+
+      <Link to="/">
+        <button>Home</button>
+      </Link>
+    </>
+  );
+}
+
+function MainPage() {
+  let [data, setData] = useState(dataCommon);
+  let [nameList, setNameList] = useState(allNames);
+  return (
+    <>
+      <div className="App">
+        <Header text="--Student Dash Board--" />
+        <MainGraphComponent data={data} />
+        <NameList nameList={nameList} />
+      </div>
+    </>
+  );
+}
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+      <Routes>
+        <Route path="/" element={<MainPage />} />
+        <Route path="/student/:id" element={<StudentPage />} />
+      </Routes>
+    </>
   );
 }
 
