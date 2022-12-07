@@ -3,7 +3,7 @@ import React, { useState } from "react";
 
 import { Route, Routes, Link } from "react-router-dom";
 
-import { VictoryBar, VictoryChart, VictoryAxis, VictoryGroup } from "victory";
+import { VictoryBar, VictoryChart, VictoryGroup } from "victory";
 
 const testData = [
   { name: "Ray", course: "course1", fun: 4, diff: 6 },
@@ -56,25 +56,72 @@ function Header({ text }) {
 }
 
 function MainGraphComponent({ data }) {
+  let [showFun, setShowFun] = useState(true);
+  let [showDiff, setShowDiff] = useState(true);
+
+  function handleChange(event) {
+    let { id, checked } = event.target;
+    if (id == "checkFun") {
+      checked ? setShowFun(true) : setShowFun(false);
+    }
+    if (id == "checkDiff") {
+      checked ? setShowDiff(true) : setShowDiff(false);
+    }
+  }
+
   return (
     <>
       <VictoryChart>
         <VictoryGroup offset={30} colorScale={"qualitative"}>
-          <VictoryBar data={data} x="course" y="fun" />
-          <VictoryBar data={data} x="course" y="diff" />
+          {showFun ? (
+            <VictoryBar data={data} x="course" y="fun" />
+          ) : (
+            <VictoryBar
+              data={data}
+              x="course"
+              y="fun"
+              style={{ data: { opacity: 0 } }}
+            />
+          )}
+
+          {showDiff ? (
+            <VictoryBar data={data} x="course" y="diff" />
+          ) : (
+            <VictoryBar
+              data={data}
+              x="course"
+              y="diff"
+              style={{ data: { opacity: 0 } }}
+            />
+          )}
         </VictoryGroup>
       </VictoryChart>
-      <Legenda />
+      <CheckFunDiff handleChange={handleChange} />
     </>
   );
 }
 
-function Legenda() {
+function CheckFunDiff({ handleChange }) {
   return (
     <>
-      <h3>Legend</h3>
-      <p>Darkblue: Grade for fun</p>
-      <p>Lightblue: Grade for difficulty</p>
+      <label>
+        <input
+          type="checkbox"
+          id="checkFun"
+          onChange={handleChange}
+          defaultChecked={true}
+        />
+        Grade of fun (dark blue)
+      </label>
+      <label>
+        <input
+          type="checkbox"
+          id="checkDiff"
+          onChange={handleChange}
+          defaultChecked={true}
+        />
+        Grade of difficulty (light blue)
+      </label>
     </>
   );
 }
