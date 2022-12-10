@@ -3,7 +3,36 @@ import React, { useState } from "react";
 
 import { Route, Routes, Link } from "react-router-dom";
 
-import { VictoryBar, VictoryChart, VictoryGroup } from "victory";
+import { VictoryBar, VictoryChart, VictoryAxis, TextSize } from "victory";
+
+import { mockData } from "./Studenten-Mock-data";
+
+let data = mockData;
+
+function createArrayOfObjects() {
+  let nArray = data.split(/\r?\n/);
+
+  let qArray = [];
+  nArray.map((e) => {
+    let x = e.split(",");
+    qArray.push(x);
+  });
+
+  let pArray = [];
+
+  qArray.map((e) => {
+    pArray.push({
+      name: e[0],
+      course: e[1],
+      fun: Number(e[2]),
+      diff: Number(e[3]),
+    });
+  });
+
+  return pArray;
+}
+
+let useData = createArrayOfObjects();
 
 const testData = [
   { name: "Ray", course: "course1", fun: 4, diff: 6 },
@@ -17,16 +46,18 @@ const testData = [
   { name: "Fien", course: "course3", fun: 4, diff: 2 },
 ];
 
+let useOrTestData = useData;
+
 let dataCommon = [];
 let allNames = [];
 
 //find all names and put them in allNames
-testData.forEach((obj) => {
+useOrTestData.forEach((obj) => {
   if (!allNames.includes(obj.name)) allNames.push(obj.name);
 });
 
 //find all the courses and put them in dataCommon
-testData.forEach((obj) => {
+useOrTestData.forEach((obj) => {
   for (let key in obj) {
     if (!dataCommon.some((co) => co.course == obj.course)) {
       dataCommon.push({ course: `${obj.course}`, fun: 0, diff: 0 });
@@ -37,7 +68,7 @@ testData.forEach((obj) => {
 //find all the fun and diff per course and update dataCommon
 
 dataCommon.forEach((obj) => {
-  testData.map((e) => {
+  useOrTestData.map((e) => {
     if (e.course == obj.course) {
       obj.fun += e.fun;
       obj.diff += e.diff;
@@ -71,30 +102,42 @@ function MainGraphComponent({ data }) {
 
   return (
     <>
-      <VictoryChart>
-        <VictoryGroup offset={30} colorScale={"qualitative"}>
-          {showFun ? (
-            <VictoryBar data={data} x="course" y="fun" />
-          ) : (
-            <VictoryBar
-              data={data}
-              x="course"
-              y="fun"
-              style={{ data: { opacity: 0 } }}
-            />
-          )}
+      <VictoryChart domainPadding={30} horizontal={true} height={2000}>
+        <VictoryAxis style={{ tickLabels: { fontSize: 5 } }} />
+        <VictoryAxis dependentAxis />
+        {showFun ? (
+          <VictoryBar
+            data={data}
+            x="course"
+            y="fun"
+            alignment="start"
+            style={{ data: { fill: "blue" } }}
+          />
+        ) : (
+          <VictoryBar
+            data={data}
+            x="course"
+            y="fun"
+            style={{ data: { opacity: 0 } }}
+          />
+        )}
 
-          {showDiff ? (
-            <VictoryBar data={data} x="course" y="diff" />
-          ) : (
-            <VictoryBar
-              data={data}
-              x="course"
-              y="diff"
-              style={{ data: { opacity: 0 } }}
-            />
-          )}
-        </VictoryGroup>
+        {showDiff ? (
+          <VictoryBar
+            data={data}
+            x="course"
+            y="diff"
+            alignment="end"
+            style={{ data: { fill: "green" } }}
+          />
+        ) : (
+          <VictoryBar
+            data={data}
+            x="course"
+            y="diff"
+            style={{ data: { opacity: 0 } }}
+          />
+        )}
       </VictoryChart>
       <CheckFunDiff handleChange={handleChange} />
     </>
@@ -111,7 +154,7 @@ function CheckFunDiff({ handleChange }) {
           onChange={handleChange}
           defaultChecked={true}
         />
-        Grade of fun (dark blue)
+        Grade of fun (blue)
       </label>
       <label>
         <input
@@ -120,7 +163,7 @@ function CheckFunDiff({ handleChange }) {
           onChange={handleChange}
           defaultChecked={true}
         />
-        Grade of difficulty (light blue)
+        Grade of difficulty (green)
       </label>
     </>
   );
@@ -148,7 +191,7 @@ function StudentPage() {
   let studentName = thisUrlSplit[thisUrlSplit.length - 1];
 
   function getData(student) {
-    return testData.filter((e) => e.name == studentName);
+    return useOrTestData.filter((e) => e.name == studentName);
   }
 
   let studentData = getData(studentName);
@@ -167,8 +210,8 @@ function StudentPage() {
 }
 
 function MainPage() {
-  let [data, setData] = useState(dataCommon);
-  let [nameList, setNameList] = useState(allNames);
+  let [data] = useState(dataCommon);
+  let [nameList] = useState(allNames);
   return (
     <>
       <div className="App">
