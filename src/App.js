@@ -3,7 +3,7 @@ import React, { useState } from "react";
 
 import { Route, Routes, Link } from "react-router-dom";
 
-import { VictoryBar, VictoryChart, VictoryAxis, TextSize } from "victory";
+import { VictoryBar, VictoryChart, VictoryAxis, VictoryTheme } from "victory";
 
 import { mockData } from "./Studenten-Mock-data";
 
@@ -50,6 +50,7 @@ let useOrTestData = useData;
 
 let dataCommon = [];
 let allNames = [];
+let allCourses = [];
 
 //find all names and put them in allNames
 useOrTestData.forEach((obj) => {
@@ -62,6 +63,12 @@ useOrTestData.forEach((obj) => {
     if (!dataCommon.some((co) => co.course == obj.course)) {
       dataCommon.push({ course: `${obj.course}`, fun: 0, diff: 0 });
     }
+  }
+});
+
+dataCommon.map((e) => {
+  if (!allCourses.includes(e.course)) {
+    allCourses.push(e.course);
   }
 });
 
@@ -99,23 +106,29 @@ function MainGraphComponent({ data }) {
       checked ? setShowDiff(true) : setShowDiff(false);
     }
   }
-
-  let barR = 0.3;
-
+  let barR = 0.4;
   return (
-    <>
+    <div style={{ width: 5000 }}>
       <VictoryChart
-        domainPadding={60}
-        height={2000}
-        width={6000}
-        style={{ parent: { marginLeft: 50 } }}
+        padding={{ top: 20, bottom: 600, left: 70, right: 40 }}
+        domainPadding={150}
+        height={4000}
+        width={20000}
+        style={{ parent: { marginLeft: 30, marginBottom: 45 } }}
       >
-        <VictoryAxis style={{ tickLabels: { fontSize: 10, padding: 9 } }} />
+        <VictoryAxis
+          style={{
+            tickLabels: { fontSize: 60, padding: 250, angle: 90 },
+          }}
+          tickValues={allCourses}
+        />
         <VictoryAxis
           dependentAxis
-          domain={{ y: [1, 4] }}
-          style={{ tickLabels: { fontSize: 70 } }}
-          tickValues={[1, 2, 3, 4]}
+          domain={{ y: [1, 5] }}
+          style={{
+            tickLabels: { fontSize: 80 },
+          }}
+          tickValues={[1, 2, 3, 4, 5]}
         />
         {showFun ? (
           <VictoryBar
@@ -132,7 +145,6 @@ function MainGraphComponent({ data }) {
             x="course"
             y="fun"
             style={{ data: { opacity: 0 } }}
-            barRatio={barR}
           />
         )}
 
@@ -143,6 +155,7 @@ function MainGraphComponent({ data }) {
             y="diff"
             alignment="end"
             style={{ data: { fill: "green" } }}
+            barRatio={barR}
           />
         ) : (
           <VictoryBar
@@ -154,7 +167,7 @@ function MainGraphComponent({ data }) {
         )}
       </VictoryChart>
       <CheckFunDiff handleChange={handleChange} />
-    </>
+    </div>
   );
 }
 

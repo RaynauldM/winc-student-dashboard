@@ -48,7 +48,7 @@ Evelyn,W4D3-2,1,5
 Evelyn,W4D3-3,1,5
 Evelyn,W4D3-4,1,5
 Evelyn,W4D3-5,1,5
-Evelyn,Next-Level CSS,1,5
+Evelyn,CSS,1,5
 Evelyn,W5D4-1,3,4
 Evelyn,Lil_Playlist,4,3
 Evelyn,W6D1-1,5,5
@@ -104,7 +104,7 @@ Aranka,W4D3-2,4,4
 Aranka,W4D3-3,3,1
 Aranka,W4D3-4,3,1
 Aranka,W4D3-5,4,3
-Aranka,Next-Level CSS,4,4
+Aranka,CSS,4,4
 Aranka,W5D4-1,1,3
 Aranka,Lil_Playlist,3,2
 Aranka,W6D1-1,1,1
@@ -160,7 +160,7 @@ Floris,W4D3-2,4,4
 Floris,W4D3-3,3,2
 Floris,W4D3-4,2,2
 Floris,W4D3-5,4,1
-Floris,Next-Level CSS,2,2
+Floris,CSS,2,2
 Floris,W5D4-1,1,3
 Floris,Lil_Playlist,3,1
 Floris,W6D1-1,3,2
@@ -216,7 +216,7 @@ Hector,W4D3-2,1,4
 Hector,W4D3-3,3,1
 Hector,W4D3-4,1,3
 Hector,W4D3-5,1,2
-Hector,Next-Level CSS,3,1
+Hector,CSS,3,1
 Hector,W5D4-1,3,4
 Hector,Lil_Playlist,3,1
 Hector,W6D1-1,1,1
@@ -272,7 +272,7 @@ Martina,W4D3-2,1,3
 Martina,W4D3-3,2,4
 Martina,W4D3-4,4,1
 Martina,W4D3-5,3,2
-Martina,Next-Level CSS,3,4
+Martina,CSS,3,4
 Martina,W5D4-1,1,4
 Martina,Lil_Playlist,1,1
 Martina,W6D1-1,2,1
@@ -328,7 +328,7 @@ Maurits,W4D3-2,3,2
 Maurits,W4D3-3,3,4
 Maurits,W4D3-4,1,3
 Maurits,W4D3-5,2,1
-Maurits,Next-Level CSS,2,3
+Maurits,CSS,2,3
 Maurits,W5D4-1,1,3
 Maurits,Lil_Playlist,4,2
 Maurits,W6D1-1,1,3
@@ -384,7 +384,7 @@ Rahima,W4D3-2,1,1
 Rahima,W4D3-3,2,1
 Rahima,W4D3-4,2,2
 Rahima,W4D3-5,3,2
-Rahima,Next-Level CSS,1,2
+Rahima,CSS,1,2
 Rahima,W5D4-1,3,3
 Rahima,Lil_Playlist,2,3
 Rahima,W6D1-1,4,4
@@ -440,7 +440,7 @@ Sandra,W4D3-2,1,3
 Sandra,W4D3-3,2,4
 Sandra,W4D3-4,1,4
 Sandra,W4D3-5,1,3
-Sandra,Next-Level CSS,3,4
+Sandra,CSS,3,4
 Sandra,W5D4-1,1,1
 Sandra,Lil_Playlist,2,2
 Sandra,W6D1-1,1,4
@@ -496,7 +496,7 @@ Wietske,W4D3-2,1,2
 Wietske,W4D3-3,1,4
 Wietske,W4D3-4,3,4
 Wietske,W4D3-5,4,3
-Wietske,Next-Level CSS,4,2
+Wietske,CSS,4,2
 Wietske,W5D4-1,3,1
 Wietske,Lil_Playlist,4,2
 Wietske,W6D1-1,1,1
@@ -552,7 +552,7 @@ Storm,W4D3-2,2,3
 Storm,W4D3-3,1,1
 Storm,W4D3-4,3,1
 Storm,W4D3-5,2,3
-Storm,Next-Level CSS,4,1
+Storm,CSS,4,1
 Storm,W5D4-1,2,2
 Storm,Lil_Playlist,1,2
 Storm,W6D1-1,4,4
