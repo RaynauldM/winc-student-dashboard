@@ -100,11 +100,23 @@ function MainGraphComponent({ data }) {
     }
   }
 
+  let barR = 0.3;
+
   return (
     <>
-      <VictoryChart domainPadding={30} horizontal={true} height={2000}>
-        <VictoryAxis style={{ tickLabels: { fontSize: 5 } }} />
-        <VictoryAxis dependentAxis />
+      <VictoryChart
+        domainPadding={60}
+        height={2000}
+        width={6000}
+        style={{ parent: { marginLeft: 50 } }}
+      >
+        <VictoryAxis style={{ tickLabels: { fontSize: 10, padding: 9 } }} />
+        <VictoryAxis
+          dependentAxis
+          domain={{ y: [1, 4] }}
+          style={{ tickLabels: { fontSize: 70 } }}
+          tickValues={[1, 2, 3, 4]}
+        />
         {showFun ? (
           <VictoryBar
             data={data}
@@ -112,6 +124,7 @@ function MainGraphComponent({ data }) {
             y="fun"
             alignment="start"
             style={{ data: { fill: "blue" } }}
+            barRatio={barR}
           />
         ) : (
           <VictoryBar
@@ -119,6 +132,7 @@ function MainGraphComponent({ data }) {
             x="course"
             y="fun"
             style={{ data: { opacity: 0 } }}
+            barRatio={barR}
           />
         )}
 
