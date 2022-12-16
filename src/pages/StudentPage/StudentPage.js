@@ -2,8 +2,10 @@ import React from "react";
 
 import { Link } from "react-router-dom";
 
-import Header from "../components/Header";
-import MainGraphComponent from "../components/MainGraphComponent";
+import "./StudentPage.css";
+
+import Header from "../../components/Header";
+import MainGraphComponent from "../../components/MainGraphComponent";
 
 export default function StudentPage({ useData }) {
   let thisUrl = window.location.href;
@@ -17,14 +19,14 @@ export default function StudentPage({ useData }) {
   let studentData = getData(studentName);
 
   return (
-    <>
+    <div className="student-page">
       <Header text={studentName} />
 
       <MainGraphComponent data={studentData} />
 
       <Link to="/">
-        <button>Home</button>
+        <button>Back</button>
       </Link>
-    </>
+    </div>
   );
 }

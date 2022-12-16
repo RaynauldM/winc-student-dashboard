@@ -1,0 +1,12 @@
+.listContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.list {
+  list-style: none;
+  border: 2px dotted black;
+  width: 20em;
+}

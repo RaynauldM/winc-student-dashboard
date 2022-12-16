@@ -1,10 +1,9 @@
-import "./App.css";
 import React from "react";
 
 import { Route, Routes } from "react-router-dom";
 
-import MainPage from "./pages/MainPage";
-import StudentPage from "./pages/StudentPage";
+import MainPage from "./pages/MainPage/MainPage";
+import StudentPage from "./pages/StudentPage/StudentPage";
 
 import useCreateObjectArray from "./customHooks/useCreateObjectArray";
 import useCreateNameArray from "./customHooks/useCreateNameArray";

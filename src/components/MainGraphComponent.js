@@ -2,7 +2,7 @@ import React, { useState } from "react";
 
 import { VictoryChart, VictoryAxis, VictoryBar } from "victory";
 
-import CheckFunDiff from "./CheckFunDiff";
+import CheckFunDiff from "./CheckFunDiff/CheckFunDiff";
 
 export default function MainGraphComponent({ data, courses }) {
   let [showFun, setShowFun] = useState(true);
@@ -19,11 +19,14 @@ export default function MainGraphComponent({ data, courses }) {
   }
   let barR = 0.4;
   return (
-    <div style={{ width: 5000 }}>
+    <div style={{ width: 5000 }} className="graph-container">
+      <div className="fun-diff-container">
+        <CheckFunDiff handleChange={handleChange} />
+      </div>
       <VictoryChart
         padding={{ top: 20, bottom: 600, left: 70, right: 40 }}
         domainPadding={150}
-        height={4000}
+        height={2000}
         width={20000}
         style={{ parent: { marginLeft: 30, marginBottom: 45 } }}
       >
@@ -77,7 +80,6 @@ export default function MainGraphComponent({ data, courses }) {
           />
         )}
       </VictoryChart>
-      <CheckFunDiff handleChange={handleChange} />
     </div>
   );
 }

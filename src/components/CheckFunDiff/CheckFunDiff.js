@@ -1,8 +1,10 @@
 import React from "react";
 
+import "./CheckFunDiff.css";
+
 export default function CheckFunDiff({ handleChange }) {
   return (
-    <>
+    <div className="container">
       <label>
         <input
           type="checkbox"
@@ -21,6 +23,6 @@ export default function CheckFunDiff({ handleChange }) {
         />
         Grade of difficulty (green)
       </label>
-    </>
+    </div>
   );
 }

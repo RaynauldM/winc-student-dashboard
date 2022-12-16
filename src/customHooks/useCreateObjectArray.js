@@ -1,16 +1,16 @@
 export default function createArrayOfObjects(data) {
-  let nArray = data.split(/\r?\n/);
+  let dataArray = data.split(/\r?\n/);
 
-  let qArray = [];
-  nArray.map((e) => {
-    let x = e.split(",");
-    qArray.push(x);
+  let newArray = [];
+  dataArray.map((element) => {
+    let noComma = element.split(",");
+    newArray.push(noComma);
   });
 
-  let pArray = [];
+  let lastArray = [];
 
-  qArray.map((e) => {
-    pArray.push({
+  newArray.map((e) => {
+    lastArray.push({
       name: e[0],
       course: e[1],
       fun: Number(e[2]),
@@ -18,5 +18,5 @@ export default function createArrayOfObjects(data) {
     });
   });
 
-  return pArray;
+  return lastArray;
 }
